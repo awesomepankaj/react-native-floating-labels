@@ -9,7 +9,8 @@ import {
   Easing,
   Text,
   View,
-  Platform
+  Platform,
+  PixelRatio
 } from 'react-native';
 
 var textPropTypes = Text.propTypes || View.propTypes
@@ -122,7 +123,7 @@ var FloatingLabel  = React.createClass({
         onEndEditing: this.updateText,
         onFocus: this._onFocus,
         onSubmitEditing: this.props.onSubmitEditing,
-        password: this.props.password,
+        secureTextEntry: this.props.password,
         returnKeyType: this.props.returnKeyType,
         selectTextOnFocus: this.props.selectTextOnFocus,
         selectionState: this.props.selectionState,
@@ -130,7 +131,8 @@ var FloatingLabel  = React.createClass({
         testID: this.props.testID,
         value: this.props.value,
         underlineColorAndroid: this.props.underlineColorAndroid, // android TextInput will show the default bottom border
-        onKeyPress: this.props.onKeyPress
+        onKeyPress: this.props.onKeyPress,
+        numberOfLines: this.props.numberOfLines,
       },
       elementStyles = [styles.element];
 
@@ -165,6 +167,12 @@ if (Platform.OS === 'web') {
   labelStyleObj.pointerEvents = 'none'
 }
 
+let font_size = 20
+
+if (PixelRatio.get() <=2 ) {
+  font_size = 14
+}
+
 var styles = StyleSheet.create({
   element: {
     position: 'relative'
@@ -176,7 +184,7 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 1,
     color: 'black',
-    fontSize: 20,
+    fontSize: font_size,
     borderRadius: 4,
     paddingLeft: 10,
     marginTop: 20,
@@ -185,8 +193,8 @@ var styles = StyleSheet.create({
 })
 
 var cleanStyle = {
-  fontSize: 20,
-  top: 7
+  fontSize: 18,
+  top: -3
 }
 
 var dirtyStyle = {
